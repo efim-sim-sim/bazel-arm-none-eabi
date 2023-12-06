@@ -114,6 +114,15 @@ filegroup(
 )
 
 filegroup(
+    name = "as_files",
+    srcs = [
+        # ":as",
+        ":compiler_pieces",
+        ":gcc",
+    ],
+)
+
+filegroup(
     name = "linker_files",
     srcs = [
         ":ar",

@@ -92,8 +92,6 @@ def _impl(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    ACTION_NAMES.assemble,
-                    ACTION_NAMES.preprocess_assemble,
                     ACTION_NAMES.linkstamp_compile,
                     ACTION_NAMES.c_compile,
                     ACTION_NAMES.cpp_compile,
@@ -106,6 +104,24 @@ def _impl(ctx):
                 flag_groups = [
                     flag_group(flags = include_flags + ctx.attr.copts),
                     flag_group(flags = ["-no-canonical-prefixes"]),
+                ],
+            ),
+        ],
+    )
+
+        
+    toolchain_as_flags = feature(
+        name = "as_flags",
+        enabled = True,
+        flag_sets = [
+            flag_set(
+                actions = [
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                ],
+                flag_groups = [
+                    flag_group(flags = ["-xassembler-with-cpp"]),
+                    flag_group(flags = include_flags + ctx.attr.copts),
                 ],
             ),
         ],
@@ -126,7 +142,7 @@ def _impl(ctx):
         ],
     )
 
-    features = [toolchain_compiler_flags, toolchain_linker_flags]
+    features = [toolchain_compiler_flags, toolchain_linker_flags, toolchain_as_flags]
 
     if (len(ctx.attr.linkopts)):
         custom_linkopts = feature(

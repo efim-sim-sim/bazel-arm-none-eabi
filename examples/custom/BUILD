@@ -5,7 +5,11 @@ load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 
 cc_binary(
     name = "binary",
-    srcs = ["main.c"],
+    srcs = [
+        "main.c",
+        "startup_cm7.s",
+        "startup.c",
+        ],
     linkopts = [
         "-Wl,-entry=main",
     ],

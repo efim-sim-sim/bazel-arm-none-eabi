@@ -46,6 +46,7 @@ def arm_none_eabi_toolchain(name, target_compatible_with = [], copts = [], linko
             name = "cc_toolchain_{}_{}".format(host, name),
             all_files = "@arm_none_eabi_{}//:compiler_pieces".format(host),
             ar_files = "@arm_none_eabi_{}//:ar_files".format(host),
+            as_files = "@arm_none_eabi_{}//:as_files".format(host),
             compiler_files = "@arm_none_eabi_{}//:compiler_files".format(host),
             dwp_files = ":empty",
             linker_files = "@arm_none_eabi_{}//:linker_files".format(host),
