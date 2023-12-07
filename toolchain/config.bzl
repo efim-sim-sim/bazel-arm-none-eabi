@@ -102,7 +102,7 @@ def _impl(ctx):
                 actions = [
                     ACTION_NAMES.linkstamp_compile,
                     ACTION_NAMES.c_compile,
-                    ACTION_NAMES.cpp_compile,
+                    # ACTION_NAMES.cpp_compile,
                     ACTION_NAMES.cpp_header_parsing,
                     ACTION_NAMES.cpp_module_compile,
                     ACTION_NAMES.cpp_module_codegen,
@@ -111,6 +111,22 @@ def _impl(ctx):
                 ],
                 flag_groups = [
                     flag_group(flags = include_flags + ctx.attr.copts),
+                    flag_group(flags = ["-no-canonical-prefixes"]),
+                ],
+            ),
+        ],
+    )
+
+    toolchain_cpp_compiler_flags = feature(
+        name = "cpp_compiler_flags",
+        enabled = True,
+        flag_sets = [
+            flag_set(
+                actions = [
+                    ACTION_NAMES.cpp_compile,
+                ],
+                flag_groups = [
+                    flag_group(flags = include_flags + ctx.attr.copts + ctx.attr.cppopts),
                     flag_group(flags = ["-no-canonical-prefixes"]),
                 ],
             ),
@@ -150,7 +166,7 @@ def _impl(ctx):
         ],
     )
 
-    features = [toolchain_compiler_flags, toolchain_linker_flags, toolchain_as_flags]
+    features = [toolchain_compiler_flags, toolchain_linker_flags, toolchain_as_flags, toolchain_cpp_compiler_flags]
 
     if (len(ctx.attr.linkopts)):
         custom_linkopts = feature(
@@ -194,6 +210,7 @@ cc_arm_none_eabi_config = rule(
         "gcc_version": attr.string(default = ""),
         "copts": attr.string_list(default = []),
         "linkopts": attr.string_list(default = []),
+        "cppopts": attr.string_list(default = []),
     },
     provides = [CcToolchainConfigInfo],
 )

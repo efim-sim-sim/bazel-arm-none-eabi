@@ -37,7 +37,7 @@ hosts = {
     "windows_x86_64": ["@platforms//os:windows", "@platforms//cpu:x86_64"],
 }
 
-def arm_none_eabi_toolchain(name, target_compatible_with = [], copts = [], linkopts = []):
+def arm_none_eabi_toolchain(name, target_compatible_with = [], copts = [], linkopts = [], cppopts=[]):
     """
     Create an arm-none-eabi toolchain with the given configuration.
 
@@ -46,6 +46,7 @@ def arm_none_eabi_toolchain(name, target_compatible_with = [], copts = [], linko
         target_compatible_with: A list of constraint values to apply to the toolchain.
         copts: A list of compiler options to apply to the toolchain.
         linkopts: A list of linker options to apply to the toolchain.
+        cppopts: -
     """
     for host, exec_compatible_with in hosts.items():
         cc_arm_none_eabi_config(
@@ -57,6 +58,7 @@ def arm_none_eabi_toolchain(name, target_compatible_with = [], copts = [], linko
             toolchain_bins = "@arm_none_eabi_{}//:compiler_components".format(host),
             copts = copts,
             linkopts = linkopts,
+            cppopts = cppopts,
         )
 
         native.cc_toolchain(
