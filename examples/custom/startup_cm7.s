@@ -115,7 +115,6 @@
   .long __BSS_SRAM_END
 #endif
 
-.globl RESET_CATCH_CORE
 .globl _core_loop
 .section ".core_loop","ax"
 .thumb
@@ -412,12 +411,6 @@ ITCM_LOOP:
     bge ITCM_LOOP
 ITCM_LOOP_END:
 
-DebuggerHeldCoreLoop:
-  ldr  r0, =RESET_CATCH_CORE
-  ldr  r0, [r0]
-  ldr  r1, =0x5A5A5A5A
-  cmp  r0, r1
-  beq	DebuggerHeldCoreLoop
 
 /************************/
 /* Erase ".bss Section" */

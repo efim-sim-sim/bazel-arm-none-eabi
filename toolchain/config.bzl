@@ -39,10 +39,18 @@ def _impl(ctx):
             ACTION_NAMES.cpp_link_executable,
             ACTION_NAMES.cpp_link_dynamic_library,
             ACTION_NAMES.cpp_link_nodeps_dynamic_library,
-            ACTION_NAMES.cpp_compile,
+            # ACTION_NAMES.cpp_compile,
             ACTION_NAMES.cpp_header_parsing,
         ],
         "gcc",
+    )
+
+    action_configs += _action_configs(
+        ctx,
+        [
+            ACTION_NAMES.cpp_compile,
+        ],
+        "g++",
     )
 
     action_configs += _action_configs(

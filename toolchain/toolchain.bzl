@@ -4,6 +4,23 @@ This module provides functions to register an arm-none-eabi toolchain
 
 load("@arm_none_eabi//toolchain:config.bzl", "cc_arm_none_eabi_config")
 
+tools = [
+    "as",
+    "ar",
+    "c++",
+    "cpp",
+    "g++",
+    "gcc",
+    "gdb",
+    "ld",
+    "nm",
+    "objcopy",
+    "objdump",
+    "readelf",
+    "strip",
+    "size",
+]
+
 compatible_cpus = {
     "arm": "@platforms//cpu:arm",
     "armv6-m": "@platforms//cpu:armv6-m",

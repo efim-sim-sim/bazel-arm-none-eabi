@@ -6,13 +6,15 @@ load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 cc_binary(
     name = "binary",
     srcs = [
-        "main.c",
+        "main.cpp",
         "startup_cm7.s",
         "startup.c",
         ],
     linkopts = [
         "-Wl,-entry=main",
+        "-T $(location :linker_flash_s32k344.ld)",
     ],
+    additional_linker_inputs = ["linker_flash_s32k344.ld"],
     target_compatible_with = [
         "@platforms//os:none",
     ],

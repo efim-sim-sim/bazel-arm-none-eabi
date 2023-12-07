@@ -1,8 +1,9 @@
 // The simplest possible main function
 
 int main()
-{
-    return 0;
+{   
+    void();
+    return 991;
 }
 
 extern void _start()
